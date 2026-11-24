@@ -8,6 +8,12 @@ import { join } from "node:path";
 const FORTUNE =
   "Tomorrow the sun will find your newest leaf first, and a stranger will pause at the window just to admire you.";
 
+// The gate only accepts 1-120 characters: refuse to write anything outside it
+// rather than silently submitting an invalid entry.
+if (FORTUNE.length < 1 || FORTUNE.length > 120) {
+  throw new Error(`Fortune must be 1-120 characters, got ${FORTUNE.length}`);
+}
+
 const outDir = join(process.cwd(), "output");
 const outFile = join(outDir, "entry.txt");
 
